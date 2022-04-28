@@ -8,53 +8,53 @@ import (
 	"github.com/chingizof/football-stats-golang/internal/models"
 )
 
-type PlayersRepo struct {
-	data map[int]*models.Player
+type CoachesRepo struct {
+	data map[int]*models.Coach
 
 	mu *sync.RWMutex
 }
 
-func (db *PlayersRepo) Create(ctx context.Context, player *models.Player) error {
+func (db *CoachesRepo) Create(ctx context.Context, phone *models.Coach) error {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 
-	db.data[player.ID] = player
+	db.data[phone.ID] = phone
 	return nil
 }
 
-func (db *PlayersRepo) All(ctx context.Context) ([]*models.Player, error) {
+func (db *CoachesRepo) All(ctx context.Context) ([]*models.Coach, error) {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
 
-	players := make([]*models.Player, 0, len(db.data))
-	for _, player := range db.data {
-		players = append(players, player)
+	coaches := make([]*models.Coach, 0, len(db.data))
+	for _, coach := range db.data {
+		coaches = append(coaches, coach)
 	}
 
-	return players, nil
+	return coaches, nil
 }
 
-func (db *PlayersRepo) ByID(ctx context.Context, id int) (*models.Player, error) {
+func (db *CoachesRepo) ByID(ctx context.Context, id int) (*models.Coach, error) {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
 
-	player, ok := db.data[id]
+	coach, ok := db.data[id]
 	if !ok {
-		return nil, fmt.Errorf("No player with id %d", id)
+		return nil, fmt.Errorf("no coach with id %d", id)
 	}
 
-	return player, nil
+	return coach, nil
 }
 
-func (db *PlayersRepo) Update(ctx context.Context, player *models.Player) error {
+func (db *CoachesRepo) Update(ctx context.Context, coach *models.Coach) error {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 
-	db.data[player.ID] = player
+	db.data[coach.ID] = coach
 	return nil
 }
 
-func (db *PlayersRepo) Delete(ctx context.Context, id int) error {
+func (db *CoachesRepo) Delete(ctx context.Context, id int) error {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 
