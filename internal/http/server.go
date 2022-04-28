@@ -102,8 +102,8 @@ func (s *Server) Run() error {
 	srv := &http.Server{
 		Addr:         s.Address,
 		Handler:      s.basicHandler(),
-		ReadTimeout:  5000000000,
-		WriteTimeout: 30000000000,
+		ReadTimeout:  5e9,  //5 seconds
+		WriteTimeout: 30e9, // 30 seconds
 	}
 	go s.ListenCtxForGT(srv)
 
