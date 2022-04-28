@@ -41,7 +41,7 @@ func (s *Server) basicHandler() chi.Router {
 	// /electronics/laptops
 	// /electronics/phones
 	// /clothes/t-shirts
-	r.Post("/electronics/laptops", func(w http.ResponseWriter, r *http.Request) {
+	r.Post("/market/players", func(w http.ResponseWriter, r *http.Request) {
 		player := new(models.Player)
 		if err := json.NewDecoder(r.Body).Decode(player); err != nil {
 			fmt.Fprintf(w, "Unknown err: %v", err)
