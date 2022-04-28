@@ -7,12 +7,11 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/chingizof/football-stats-golang/internal/models"
 	"github.com/chingizof/football-stats-golang/internal/store"
-	"github.com/gin-gonic/gin/render"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/render"
 )
 
 type Server struct {
@@ -103,8 +102,8 @@ func (s *Server) Run() error {
 	srv := &http.Server{
 		Addr:         s.Address,
 		Handler:      s.basicHandler(),
-		ReadTimeout:  time.Second * 5,
-		WriteTimeout: time.Second * 30,
+		ReadTimeout:  5,
+		WriteTimeout: 30,
 	}
 	go s.ListenCtxForGT(srv)
 
